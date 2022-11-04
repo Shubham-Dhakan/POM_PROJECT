@@ -18,6 +18,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import rahulShettyQaClass.pageObjects.CartPage;
 import rahulShettyQaClass.pageObjects.CheckOutPage;
 import rahulShettyQaClass.pageObjects.LoginPage;
+import rahulShettyQaClass.pageObjects.OrderPlacedMessage;
 import rahulShettyQaClass.pageObjects.ProductCatalogue;
 
 
@@ -32,19 +33,20 @@ public class StandAloneTest {
 		String product = "IPHONE 13 PRO";
 		LoginPage login = new LoginPage(driver);	// Sending chromeDriver Instance in another Class by passing that instance in arguments  
 		login.goTo();														// Login Page
-		login.loginApplication("kr3608149@gmail.com","FordMustang@12");		// Username, Password
-		ProductCatalogue catalogue = new ProductCatalogue(driver);			// Product Page
+		ProductCatalogue catalogue = login.loginApplication("kr3608149@gmail.com","FordMustang@12");		// Username, Password
 		List<WebElement> productsList = catalogue.listOfProducts();		
 		catalogue.addProductToCart(product);
-		CartPage cartClassObject = new CartPage(driver);
-		cartClassObject.goToCartPage(product);
-		cartClassObject.goToCheckOut();
-		CheckOutPage checkOutPageObject = new CheckOutPage(driver);
+		CartPage cartClassObject = catalogue.goToCart();
+		Boolean match = cartClassObject.verifyCartPageProducts(product);
+		Assert.assertTrue(match);
+		CheckOutPage checkOutPageObject = cartClassObject.goToCheckOut(); 
 		checkOutPageObject.Email("abc@gmail.com");
 		checkOutPageObject.Country("India");
 		checkOutPageObject.Cvv("555");
 		checkOutPageObject.cardHolderName("xyz");
-		checkOutPageObject.PlaceOrder();
+		OrderPlacedMessage orderPlaceText = checkOutPageObject.PlaceOrder();
+		String confirmMessage = orderPlaceText.getOrderText();
+		Assert.assertTrue(confirmMessage.equalsIgnoreCase("Thankyou for the order."));
 		}
 
 }

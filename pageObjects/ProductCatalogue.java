@@ -42,7 +42,10 @@ public class ProductCatalogue extends AbstractComponent {
 		  WebElement prod = getProductByName(product);
 		  prod.findElement(addToCart).click();
 		  waitForElementToAppear(productAddedMessage);
+	}
+	
+	public void  goToCartPage() {
+		  goToCart();
 		  
 	}
-
 }

@@ -39,10 +39,12 @@ public class LoginPage extends AbstractComponent{
 	@FindBy(id="login")
 	WebElement loginButton;
 	
-	public void loginApplication(String email, String password) {
+	public ProductCatalogue loginApplication(String email, String password) {
 		userEmail.sendKeys(email);
 		userPassword.sendKeys(password);
 		loginButton.click();
+		ProductCatalogue catalogue = new ProductCatalogue(driver);
+		return catalogue;
 	}
 	
 	public void goTo() {

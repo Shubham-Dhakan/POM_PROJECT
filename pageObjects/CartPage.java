@@ -9,35 +9,34 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 
-public class CartPage {
+import rahulShettyQaClass.AbstractComponents.AbstractComponent;
+
+public class CartPage extends AbstractComponent{
 	WebDriver driver;
 	public CartPage(WebDriver driver) {
+		super(driver);
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
 	}
 
-	@FindBy(xpath="//button[@routerlink='/dashboard/cart']")
-	WebElement cartPageButton;
-	
+
 	@FindBy(xpath="//div[@class='cartSection']/h3")
 	List <WebElement> cartPageProducts;
 	
 	@FindBy(xpath="(//button[@type='button'])[2]")
 	WebElement checkOutButton;
 	
-	public void goToCartPage(String product) {
-		WebElement button = cartPageButton;
-		button.click();
+
+	public Boolean verifyCartPageProducts(String product) {
 		
-		List <WebElement> cartProducts = cartPageProducts;
-		Boolean match = cartProducts.stream().anyMatch(cartProduct->cartProduct.getText().equals(product));  
-		Assert.assertTrue(match);
-		
+		Boolean match = cartPageProducts.stream().anyMatch(cartProduct->cartProduct.getText().equals(product));  
+		return match;
+		} 
+
+	public CheckOutPage goToCheckOut() {
+		checkOutButton.click();
+		CheckOutPage checkOutPageObject = new CheckOutPage(driver);
+		return checkOutPageObject;
 	}
 	
-	public void goToCheckOut() {
-		WebElement checkOutPage = checkOutButton;
-		checkOutPage.click();
-	} 
-
 }
