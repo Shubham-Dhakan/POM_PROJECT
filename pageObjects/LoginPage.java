@@ -39,6 +39,9 @@ public class LoginPage extends AbstractComponent{
 	@FindBy(id="login")
 	WebElement loginButton;
 	
+	@FindBy(xpath="//div[text()=' Incorrect email or password. ']")
+	WebElement wrongCredentials;
+	
 	public ProductCatalogue loginApplication(String email, String password) {
 		userEmail.sendKeys(email);
 		userPassword.sendKeys(password);
@@ -50,7 +53,9 @@ public class LoginPage extends AbstractComponent{
 	public void goTo() {
 		driver.get("https://rahulshettyacademy.com/client");
 		System.out.println(driver.getTitle());
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-		driver.manage().window().maximize();
+	}
+	public String ErrorValidation() {
+		waitForWebElementToAppear(wrongCredentials);
+		return wrongCredentials.getText();
 	}
 }

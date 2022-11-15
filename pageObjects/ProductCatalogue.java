@@ -48,4 +48,11 @@ public class ProductCatalogue extends AbstractComponent {
 		  goToCart();
 		  
 	}
+	public OrderPage OrderHistoryPage(){
+	 	return goToOrderPage();
+		
+		
+}
+
+
 }

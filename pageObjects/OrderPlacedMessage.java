@@ -11,7 +11,7 @@ public class OrderPlacedMessage {
 			this.driver = driver;
 			PageFactory.initElements(driver, this);
 		}
-		@FindBy(xpath="//h1[text()=' Thankyou for the order. ']")
+		@FindBy(xpath="//h1[@class='hero-primary']")
 		WebElement OrderPlacedText;
 		
 	public String getOrderText() {

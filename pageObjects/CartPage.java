@@ -31,7 +31,7 @@ public class CartPage extends AbstractComponent{
 		
 		Boolean match = cartPageProducts.stream().anyMatch(cartProduct->cartProduct.getText().equals(product));  
 		return match;
-		} 
+		}  
 
 	public CheckOutPage goToCheckOut() {
 		checkOutButton.click();
