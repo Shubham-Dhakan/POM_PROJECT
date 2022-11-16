@@ -39,7 +39,7 @@ public class LoginPage extends AbstractComponent{
 	@FindBy(id="login")
 	WebElement loginButton;
 	
-	@FindBy(xpath="//div[text()=' Incorrect email or password. ']")
+	@FindBy(xpath="//div[text()='Incorrect email or password.']")
 	WebElement wrongCredentials;
 	
 	public ProductCatalogue loginApplication(String email, String password) {
